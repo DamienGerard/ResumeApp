@@ -9,14 +9,14 @@ namespace ResumeApp.model
     enum UserType { admin, simple }
     class User
     {
-        public string username { get; set; }
+        public String username { get; set; }
         public string firstName { get; set; }
         public string lastName { get; set; }
         public UserType usertype { get; set; }
         public string password { get; set; }
         public string description { get; set; }
         public Dictionary<String, Experience> experiences { get; set; }
-        public Dictionary<String, Education> education { get; set; }
+        public Dictionary<String, Education> educations { get; set; }
         public Dictionary<String, Skill> skills { get; set; }
         public Contact contact { get; set; }
 
@@ -30,12 +30,12 @@ namespace ResumeApp.model
             this.password = password;
             this.description = description;
             this.experiences = experiences;
-            this.education = education;
+            this.educations = education;
             this.skills = skills;
             this.contact = contact;
         }
 
-        public Dictionary<String, User> fetchAll()
+        public static Dictionary<String, User> fetchAll()
         {
             Dictionary<String, Experience> retreivedExperiences = Experience.fetchAll();
             Dictionary<String, Education> retreivedEducation = Education.fetchAll();
@@ -54,13 +54,43 @@ namespace ResumeApp.model
                         userDataRow[3]=="admin" ? UserType.admin : UserType.simple, 
                         userDataRow[4], 
                         userDataRow[5],
-                        (from experience in retreivedExperiences where experience.Key == userDataRow[0] select experience.Value).ToDictionary(experience => experience.id, experience => experience),
-                        (from education in retreivedEducation where education.Key == userDataRow[0] select education.Value).ToDictionary(education => education.id, education => education),
+                        (from experience in retreivedExperiences where experience.Value.username == userDataRow[0] select experience.Value).ToDictionary(experience => experience.id, experience => experience),
+                        (from education in retreivedEducation where education.Value.username == userDataRow[0] select education.Value).ToDictionary(education => education.id, education => education),
                         (from skill in retreivedSkills where skill.Key == userDataRow[0] select skill.Value).ToDictionary(skill => skill.id, skill => skill),
                         (from contact in retreivedContacts where contact.Key == userDataRow[0] select contact.Value).ElementAt(0)
                     ));
             }
             return users;
+        }
+
+        public void save()
+        {
+            var users = fetchAll();
+            if (users.ContainsKey(username))
+            {
+                users[username] = this;
+            } else
+            {
+                users.Add(username, this);
+            }
+
+            foreach (var experience in experiences) experience.Value.save();
+            foreach (var education in educations) education.Value.save();
+            foreach (var skill in skills) skill.Value.save();
+            contact.save();
+
+            FileHandler.CsvFileWriter(ToDataset(users.Values.ToList()), @"C:\Users\p128bf6\source\repos\ResumeApp\ResumeApp\pseudoDatabase\users.csv", ',');
+        }
+
+
+        public List<String> ToStringList() => new List<String>() { username, firstName, lastName, (usertype == UserType.admin)? "admin" : "guest", password, description};
+
+        public static List<List<String>> ToDataset(List<User> users) {
+            var dataset = new List<List<String>>();
+            foreach (var user in users) {
+                dataset.Add(user.ToStringList());
+            }
+            return dataset;
         }
     }
 }

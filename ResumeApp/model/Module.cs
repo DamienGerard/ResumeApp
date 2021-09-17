@@ -9,13 +9,13 @@ namespace ResumeApp.model
     {
         public String id { get; set; }
         public String name { get; set; }
-        public String desc { get; set; }
+        public String description { get; set; }
         public Dictionary<String, String> projects { get; set; }
 
-        public Module(String id, String name, String desc, Dictionary<String, String> projects) {
+        public Module(String id, String name, String description, Dictionary<String, String> projects) {
             this.id = id;
             this.name = name;
-            this.desc = desc;
+            this.description = description;
             this.projects = projects;
         }
 
@@ -24,18 +24,13 @@ namespace ResumeApp.model
             Dictionary<String, Module> modules = new Dictionary<String, Module>();
 
             var rawModules = FileHandler.CsvFileReader(@"C:\Users\p128bf6\source\repos\ResumeApp\ResumeApp\pseudoDatabase\modules.csv", ',');
-            var rawProjects = FileHandler.CsvFileReader(@"C:\Users\p128bf6\source\repos\ResumeApp\ResumeApp\pseudoDatabase\projects.csv", ',');
-            Dictionary<String, List<String>> projectsDictionary = new Dictionary<string, List<string>>();
-
-            foreach (var projectRow in rawProjects) {
-                projectsDictionary.Add(projectRow[1], projectRow);
-            }
+            var projectsDictionary = fetchAllProject();
 
             Dictionary<String, String> projects = new Dictionary<String, String>();
 
             foreach (var moduleRow in rawModules)
             {
-                var projectsOfModule = (from projectRow in rawProjects where projectRow[0] == moduleRow[0] select projectRow).ToList();
+                var projectsOfModule = (from projectRow in projectsDictionary where projectRow.Key.StartsWith(moduleRow[0]) select projectRow.Value).ToList();
                 foreach (var project in projectsOfModule) {
                     projects.Add(project[1], project[2]);
                 }
@@ -43,6 +38,61 @@ namespace ResumeApp.model
                 projects.Clear();
             }
             return modules;
+        }
+
+        private static Dictionary<String, List<String>> fetchAllProject() {
+            var rawProjects = FileHandler.CsvFileReader(@"C:\Users\p128bf6\source\repos\ResumeApp\ResumeApp\pseudoDatabase\projects.csv", ',');
+            Dictionary<String, List<String>> projectsDictionary = new Dictionary<string, List<string>>();
+
+            foreach (var projectRow in rawProjects)
+            {
+                projectsDictionary.Add($"{projectRow[0]}_{projectRow[1]}", projectRow);
+            }
+
+            return projectsDictionary;
+        }
+
+        internal void save()
+        {
+            var modules = fetchAll();
+
+            if (modules.ContainsKey(id)) {
+                modules[id] = this;
+            } else {
+                modules.Add(id, this);
+            }
+
+            saveProjects();
+
+            FileHandler.CsvFileWriter(ToDataset(modules.Values.ToList()), @"C:\Users\p128bf6\source\repos\ResumeApp\ResumeApp\pseudoDatabase\experiences.csv", ',');
+        }
+
+        private void saveProjects()
+        {
+            var allProjects = fetchAllProject();
+            foreach (var project in projects) {
+                if (allProjects.ContainsKey($"{id}_{project.Key}"))
+                {
+                    allProjects[$"{id}_{project.Key}"] = new List<String>() { id, project.Key, project.Value };
+                }
+                else {
+                    allProjects.Add($"{id}_{project.Key}", new List<String>() { id, project.Key, project.Value });
+                }
+            }
+
+            FileHandler.CsvFileWriter(allProjects.Values.ToList(), @"C:\Users\p128bf6\source\repos\ResumeApp\ResumeApp\pseudoDatabase\projects.csv", ',');
+        }
+
+        public List<String> ToStringList() => new List<String>() { id, name, description };
+
+        public static List<List<String>> ToDataset(List<Module> modules)
+        {
+            var dataset = new List<List<String>>();
+            foreach (var module in modules)
+            {
+                dataset.Add(module.ToStringList());
+            }
+            return dataset;
         }
     }
 }

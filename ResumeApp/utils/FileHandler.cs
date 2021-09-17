@@ -16,20 +16,33 @@ namespace ResumeApp.utils
             if (File.Exists(filename))
             {
                 // Reads file line by line
-                StreamReader Textfile = new StreamReader(filename);
+                StreamReader sr = new StreamReader(filename);
                 string line;
                 var stringList = new List<string>();
-                while ((line = Textfile.ReadLine()) != null)
+                while ((line = sr.ReadLine()) != null)
                 {
                     stringList = line.Split(delimeter).ToList();
 
                     data.Add(stringList);
                 }
 
-                Textfile.Close();
+                sr.Close();
             }
 
             return data;
+        }
+
+        public static void CsvFileWriter(List<List<string>> data, string filename, char delimeter)
+        {
+            StreamWriter sw = new StreamWriter(filename);
+
+            foreach (var line in data) {
+                foreach (var cellEntry in line) {
+                    sw.Write($"{cellEntry}{delimeter}");
+                }
+            }
+
+            sw.Close();
         }
     }
 }

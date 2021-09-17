@@ -8,10 +8,10 @@ namespace ResumeApp.model
 {
     class ProfTrain : Education
     {
-        public string desc { get; set; }
+        public string description { get; set; }
 
-        public ProfTrain(string id, string institution, string certification, String desc) : base(id, institution, certification, EducationType.professional) {
-            this.desc = desc;
+        public ProfTrain(string id, string institution, string certification, String desc, string username) : base(id, institution, certification, EducationType.professional, username) {
+            this.description = desc;
         }
 
         internal static Dictionary<String, ProfTrain> fetchAll(List<List<String>> rawEducation = null)
@@ -33,10 +33,40 @@ namespace ResumeApp.model
             {
                 if (educationRow[4] != "prof_train") continue;
 
-                profTrains.Add(educationRow[0], new ProfTrain(educationRow[0], educationRow[0], educationRow[0], profTrainDictionary[educationRow[0]]));
+                profTrains.Add(educationRow[1], new ProfTrain(educationRow[1], educationRow[2], educationRow[3], profTrainDictionary[educationRow[0]], educationRow[0]));
             }
 
             return profTrains;
+        }
+
+        internal new void save()
+        {
+            base.save();
+            var profTrains = fetchAll();
+
+            if (profTrains.ContainsKey(id))
+            {
+                profTrains[id] = this;
+            }
+            else
+            {
+                profTrains.Add(id, this);
+            }
+
+            FileHandler.CsvFileWriter(ToDataset(profTrains.Values.ToList()), @"C:\Users\p128bf6\source\repos\ResumeApp\ResumeApp\pseudoDatabase\experiences.csv", ',');
+        }
+
+
+        public new List<String> ToStringList() => new List<String>() { id, description };
+
+        public static List<List<String>> ToDataset(List<ProfTrain> profTrains)
+        {
+            var dataset = new List<List<String>>();
+            foreach (var profTrain in profTrains)
+            {
+                dataset.Add(profTrain.ToStringList());
+            }
+            return dataset;
         }
     }
 }
