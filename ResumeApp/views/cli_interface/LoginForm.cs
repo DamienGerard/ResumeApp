@@ -17,8 +17,8 @@ namespace ResumeApp.views.cli_interface
                                           __/ |        
                                          |___/         
                             ";
-        private static string enterYourUsername = @"";
-        private static string enterYourPassword = @"";
+        private static string enterYourUsername = @"Enter Username";
+        private static string enterYourPassword = @"Enter Password";
         private static string loginAsGuest = @"";
         private static string loginAsAdmin = @"";
         private static string goBack = @"";
@@ -58,7 +58,7 @@ namespace ResumeApp.views.cli_interface
                     Console.WriteLine("To log in as \"Guest\", enter \"2\"");
                     input = Console.ReadLine();
                     if (input == "<-") break;
-                    if (input != "1" || input != "2")
+                    if (input != "1" && input != "2")
                     {
                         Console.WriteLine("ERROR\nWrong input!\nPlease, try again.");
                     }

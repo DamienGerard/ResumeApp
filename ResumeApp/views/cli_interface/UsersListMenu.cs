@@ -47,8 +47,10 @@ ___  ___                              __   _   _
                     if (LoggedInStatus.loggedInAs == UserType.admin)
                     {
                         var newUser = AddUserForm.DisplayAddUserForm(Users, LoggedInStatus);
-                        Users.Add(newUser.username, newUser);
-                        newUser.save();
+                        if (newUser!=null) { 
+                            Users.Add(newUser.username, newUser);
+                            newUser.save();
+                        }
                     }
                     else
                     {

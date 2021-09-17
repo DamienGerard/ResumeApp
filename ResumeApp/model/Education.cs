@@ -62,7 +62,7 @@ namespace ResumeApp.model
                 educations.Add(id, this);
             }
 
-            FileHandler.CsvFileWriter(ToDataset(educations.Values.ToList()), @"C:\Users\p128bf6\source\repos\ResumeApp\ResumeApp\pseudoDatabase\users.csv", ',');
+            FileHandler.CsvFileWriter(ToDataset(educations.Values.ToList()), @"C:\Users\p128bf6\source\repos\ResumeApp\ResumeApp\pseudoDatabase\education.csv", ',');
         }
 
 

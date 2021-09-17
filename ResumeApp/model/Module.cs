@@ -64,7 +64,7 @@ namespace ResumeApp.model
 
             saveProjects();
 
-            FileHandler.CsvFileWriter(ToDataset(modules.Values.ToList()), @"C:\Users\p128bf6\source\repos\ResumeApp\ResumeApp\pseudoDatabase\experiences.csv", ',');
+            FileHandler.CsvFileWriter(ToDataset(modules.Values.ToList()), @"C:\Users\p128bf6\source\repos\ResumeApp\ResumeApp\pseudoDatabase\modules.csv", ',');
         }
 
         private void saveProjects()

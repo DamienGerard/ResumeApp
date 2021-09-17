@@ -30,8 +30,8 @@ namespace ResumeApp.views.cli_interface
                 Console.WriteLine("Enter a command to proceed(e.g., experiences, edit first name, etc...)");
                 input = Console.ReadLine();
                 if (input == "<-") break;
-                input = input.ToLower();
-                if (input.StartsWith("edit") && (LoggedInStatus.loggedInAs != UserType.admin || SelectedUser.username != LoggedInStatus.user.username))
+                //input = input.ToLower();
+                if (input.StartsWith("edit") && (LoggedInStatus.loggedInAs != UserType.admin && SelectedUser.username != LoggedInStatus.user.username))
                 {
                     Console.WriteLine("ERROR\nUnauthorised action!\nPlease, try again.");
                 }
@@ -96,14 +96,14 @@ namespace ResumeApp.views.cli_interface
 
                 Console.WriteLine("Enter a command to proceed(e.g., add experience, <experience_id> or delete <experience_id> )");
                 input = Console.ReadLine();
-                input = input.ToLower();
+                //input = input.ToLower();
                 if (input == "<-")
                 {
                     break;
                 }
                 else if (input=="add experience")
                 {
-                    if (LoggedInStatus.loggedInAs != UserType.admin || LoggedInStatus.user.username != SelectedUser.username) { 
+                    if (LoggedInStatus.loggedInAs != UserType.admin && LoggedInStatus.user.username != SelectedUser.username) { 
                         Console.WriteLine("ERROR\nUnauthorised action!\n");
                     }
                     else
@@ -120,7 +120,7 @@ namespace ResumeApp.views.cli_interface
                     {
                         Console.WriteLine($"ERROR\n{experienceToDelete} does not exist!\nPlease, try again.");
                     }
-                    else if (LoggedInStatus.loggedInAs != UserType.admin || !LoggedInStatus.user.educations.ContainsKey(experienceToDelete))
+                    else if (LoggedInStatus.loggedInAs != UserType.admin && !LoggedInStatus.user.educations.ContainsKey(experienceToDelete))
                     {
                         Console.WriteLine("ERROR\nUnauthorised action!\n");
                     }
@@ -157,7 +157,7 @@ namespace ResumeApp.views.cli_interface
 
                 Console.WriteLine("Enter a command to proceed(e.g., edit job title, edit description)");
                 input = Console.ReadLine();
-                input = input.ToLower();
+                //input = input.ToLower();
                 if (input == "<-")
                 {
                     break;
@@ -275,22 +275,22 @@ namespace ResumeApp.views.cli_interface
             while (true)
             {
                 Console.WriteLine("EDUCATIONS\n\n");
-                Console.WriteLine("{0,20} {1,20} {1,20} {1,20}", "Education Id", "Certification", "Institution", "Type");
+                Console.WriteLine("{0,20} {1,20} {2,20} {3,20}", "Education Id", "Certification", "Institution", "Type");
                 foreach (var education in SelectedUser.educations.Values)
                 {
-                    Console.WriteLine("{0,20} {1,20} {1,20}", education.id, education.certification, education.institution, (education.educationType==EducationType.professional) ? "Professional Training" : "University Training");
+                    Console.WriteLine("{0,20} {1,20} {2,20}", education.id, education.certification, education.institution, (education.educationType==EducationType.professional) ? "Professional Training" : "University Training");
                 }
 
                 Console.WriteLine("Enter a command to proceed(e.g., add education, <education_id> or delete <education_id> )");
                 input = Console.ReadLine();
-                input = input.ToLower();
+                //input = input.ToLower();
                 if (input == "<-")
                 {
                     break;
                 }
                 else if (input == "add education")
                 {
-                    if (LoggedInStatus.loggedInAs != UserType.admin || LoggedInStatus.user.username!=SelectedUser.username)
+                    if (LoggedInStatus.loggedInAs != UserType.admin && LoggedInStatus.user.username!=SelectedUser.username)
                     {
                         Console.WriteLine("ERROR\nUnauthorised action!\n");
                     }
@@ -308,7 +308,7 @@ namespace ResumeApp.views.cli_interface
                     {
                         Console.WriteLine($"ERROR\n{educationToDelete} does not exist!\nPlease, try again.");
                     }
-                    else if (LoggedInStatus.loggedInAs != UserType.admin || !LoggedInStatus.user.educations.ContainsKey(educationToDelete))
+                    else if (LoggedInStatus.loggedInAs != UserType.admin && !LoggedInStatus.user.educations.ContainsKey(educationToDelete))
                     {
                         Console.WriteLine("ERROR\nUnauthorised action!\n");
                     }
@@ -347,7 +347,7 @@ namespace ResumeApp.views.cli_interface
                     Console.WriteLine("{0,20} {1,20}", "Module Id", "Module name");
                     foreach (var module in ((University)education).modules.Values)
                     {
-                        Console.WriteLine("{0,20} {1,20} {1,20}", module.id, module.name);
+                        Console.WriteLine("{0,20} {1,20} {2,20}", module.id, module.name);
                     }
                     Console.WriteLine("\n\nEnter a command to proceed(e.g., edit certification, delete <module_id>, <module_id>, etc...)");
 
@@ -357,7 +357,7 @@ namespace ResumeApp.views.cli_interface
                     Console.WriteLine("\n\nEnter a command to proceed(e.g., edit certification, delete <module_id>, <module_id>, etc...)");
                 }
                 input = Console.ReadLine();
-                input = input.ToLower();
+                //input = input.ToLower();
                 if (input == "<-")
                 {
                     break;
@@ -382,7 +382,7 @@ namespace ResumeApp.views.cli_interface
                 }
                 else if (input == "add module")
                 {
-                    if (LoggedInStatus.loggedInAs != UserType.admin || LoggedInStatus.user.username != SelectedUser.username)
+                    if (LoggedInStatus.loggedInAs != UserType.admin && LoggedInStatus.user.username != SelectedUser.username)
                     {
                         Console.WriteLine("ERROR\nUnauthorised action!\n");
                     }
@@ -400,7 +400,7 @@ namespace ResumeApp.views.cli_interface
                     {
                         Console.WriteLine($"ERROR\n{moduleToDelete} does not exist!\nPlease, try again.");
                     }
-                    else if (LoggedInStatus.loggedInAs != UserType.admin || !LoggedInStatus.user.educations.ContainsKey(moduleToDelete))
+                    else if (LoggedInStatus.loggedInAs != UserType.admin && !LoggedInStatus.user.educations.ContainsKey(moduleToDelete))
                     {
                         Console.WriteLine("ERROR\nUnauthorised action!\n");
                     }
@@ -443,8 +443,8 @@ namespace ResumeApp.views.cli_interface
                 Console.WriteLine("\n\nEnter a command to proceed(e.g., edit email name, edit project title/description <project_title>, add project, delete <project_title>, etc...)");
                 input = Console.ReadLine();
                 if (input == "<-") break;
-                input = input.ToLower();
-                if ((input.StartsWith("edit") || input.StartsWith("add") || input.StartsWith("delete")) && (LoggedInStatus.loggedInAs != UserType.admin || SelectedUser.username != LoggedInStatus.user.username))
+                //input = input.ToLower();
+                if ((input.StartsWith("edit") || input.StartsWith("add") || input.StartsWith("delete")) && (LoggedInStatus.loggedInAs != UserType.admin && SelectedUser.username != LoggedInStatus.user.username))
                 {
                     Console.WriteLine("ERROR\nUnauthorised action!\nPlease, try again.");
                 }
@@ -653,22 +653,22 @@ namespace ResumeApp.views.cli_interface
             while (true)
             {
                 Console.WriteLine("Skills\n\n");
-                Console.WriteLine("{0,20} {1,20} {1,20} {1,20}", "Skill Id", "Skill Name", "Type");
+                Console.WriteLine("{0,20} {1,20} {2,20}", "Skill Id", "Skill Name", "Type");
                 foreach (var skill in SelectedUser.skills.Values)
                 {
-                    Console.WriteLine("{0,20} {1,20} {1,20}", skill.id, skill.name, (skill.skillType == SkillType.technological) ? "Technological skill" : "Personal skill");
+                    Console.WriteLine("{0,20} {1,20} {2,20}", skill.id, skill.name, (skill.skillType == SkillType.technological) ? "Technological skill" : "Personal skill");
                 }
 
                 Console.WriteLine("Enter a command to proceed(e.g., add skill, <skill_id> or delete <skill_id> )");
                 input = Console.ReadLine();
-                input = input.ToLower();
+                //input = input.ToLower();
                 if (input == "<-")
                 {
                     break;
                 }
                 else if (input == "add skill")
                 {
-                    if (LoggedInStatus.loggedInAs != UserType.admin || LoggedInStatus.user.username != SelectedUser.username)
+                    if (LoggedInStatus.loggedInAs != UserType.admin && LoggedInStatus.user.username != SelectedUser.username)
                     {
                         Console.WriteLine("ERROR\nUnauthorised action!\n");
                     }
@@ -690,7 +690,7 @@ namespace ResumeApp.views.cli_interface
                     {
                         Console.WriteLine($"ERROR\n{skillToDelete} does not exist!\nPlease, try again.");
                     }
-                    else if (LoggedInStatus.loggedInAs != UserType.admin || !LoggedInStatus.user.educations.ContainsKey(skillToDelete))
+                    else if (LoggedInStatus.loggedInAs != UserType.admin && !LoggedInStatus.user.educations.ContainsKey(skillToDelete))
                     {
                         Console.WriteLine("ERROR\nUnauthorised action!\n");
                     }
@@ -728,7 +728,7 @@ namespace ResumeApp.views.cli_interface
                 
                 Console.WriteLine("Enter a command to proceed(e.g., edit name, edit description, etc...)");
                 input = Console.ReadLine();
-                input = input.ToLower();
+                //input = input.ToLower();
                 if (input == "<-")
                 {
                     break;
@@ -846,7 +846,7 @@ namespace ResumeApp.views.cli_interface
                 Console.WriteLine("\n\nEnter a command to proceed(e.g., edit email address, edit link title/url <link_title>, add link, delete link <link_title>, etc...)");
                 input = Console.ReadLine();
                 if (input == "<-") break;
-                input = input.ToLower();
+                //input = input.ToLower();
                 if ((input.StartsWith("edit") || input.StartsWith("add") || input.StartsWith("delete")) && (LoggedInStatus.loggedInAs != UserType.admin || SelectedUser.username != LoggedInStatus.user.username))
                 {
                     Console.WriteLine("ERROR\nUnauthorised action!\nPlease, try again.");

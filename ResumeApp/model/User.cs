@@ -83,7 +83,7 @@ namespace ResumeApp.model
         }
 
 
-        public List<String> ToStringList() => new List<String>() { username, firstName, lastName, (usertype == UserType.admin)? "admin" : "guest", password, description};
+        public List<String> ToStringList() => new List<String>() { username, firstName, lastName, (usertype == UserType.admin)? "admin" : "guest", password, description, contact.email, contact.phoneNum};
 
         public static List<List<String>> ToDataset(List<User> users) {
             var dataset = new List<List<String>>();
