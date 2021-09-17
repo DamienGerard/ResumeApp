@@ -278,7 +278,7 @@ namespace ResumeApp.views.cli_interface
                 Console.WriteLine("{0,20} {1,20} {2,20} {3,20}", "Education Id", "Certification", "Institution", "Type");
                 foreach (var education in SelectedUser.educations.Values)
                 {
-                    Console.WriteLine("{0,20} {1,20} {2,20}", education.id, education.certification, education.institution, (education.educationType==EducationType.professional) ? "Professional Training" : "University Training");
+                    Console.WriteLine("{0,20} {1,20} {2,20} {3,20}", education.id, education.certification, education.institution, (education.educationType==EducationType.professional) ? "Professional Training" : "University Training");
                 }
 
                 Console.WriteLine("Enter a command to proceed(e.g., add education, <education_id> or delete <education_id> )");
@@ -297,7 +297,18 @@ namespace ResumeApp.views.cli_interface
                     else
                     {
                         var newEducation = DisplayAddEducationForm(SelectedUser.username);
-                        if (newEducation != null) SelectedUser.educations.Add(newEducation.id, newEducation);
+                        if (newEducation != null)
+                        {
+                            SelectedUser.educations.Add(newEducation.id, newEducation);
+                            if (newEducation.educationType == EducationType.university)
+                            {
+                                ((University)newEducation).save();
+                            }
+                            else if (newEducation.educationType == EducationType.professional)
+                            {
+                                ((ProfTrain)newEducation).save();
+                            }
+                        }
                     }
 
                 }
@@ -339,7 +350,7 @@ namespace ResumeApp.views.cli_interface
                 Console.WriteLine("{0,-20}: {1,20}", "Education Id", education.id);
                 Console.WriteLine("{0,-20}: {1,20}", "Certification", education.certification);
                 Console.WriteLine("{0,-20}: {1,20}", "Institution", education.institution);
-                Console.WriteLine("{0,-20}: {1,20}", "Type", "Type", (education.educationType == EducationType.professional) ? "Professional Training" : "University Training");
+                Console.WriteLine("{0,-20}: {1,20}", "Type", (education.educationType == EducationType.professional) ? "Professional Training" : "University Training");
 
                 if (education.educationType == EducationType.university)
                 {
@@ -347,7 +358,7 @@ namespace ResumeApp.views.cli_interface
                     Console.WriteLine("{0,20} {1,20}", "Module Id", "Module name");
                     foreach (var module in ((University)education).modules.Values)
                     {
-                        Console.WriteLine("{0,20} {1,20} {2,20}", module.id, module.name);
+                        Console.WriteLine("{0,20} {1,20}", module.id, module.name);
                     }
                     Console.WriteLine("\n\nEnter a command to proceed(e.g., edit certification, delete <module_id>, <module_id>, etc...)");
 

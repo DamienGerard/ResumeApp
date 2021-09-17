@@ -40,6 +40,7 @@ namespace ResumeApp.utils
                 foreach (var cellEntry in line) {
                     sw.Write($"{cellEntry}{delimeter}");
                 }
+                sw.WriteLine("");
             }
 
             sw.Close();

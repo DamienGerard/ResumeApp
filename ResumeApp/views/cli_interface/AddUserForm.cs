@@ -117,7 +117,15 @@ namespace ResumeApp.views.cli_interface
                     else if (input == "yes")
                     {
                         var newEducation = UserPage.DisplayAddEducationForm(username);
-                        educations.Add(newEducation.id, newEducation);
+                        if (newEducation!=null) { 
+                            educations.Add(newEducation.id, newEducation);
+                            if (newEducation.educationType == EducationType.university) {
+                                ((University)newEducation).save();
+                            }else if (newEducation.educationType == EducationType.professional)
+                            {
+                                ((ProfTrain)newEducation).save();
+                            }
+                        }
                     }
                     else if (input == "no")
                     {
