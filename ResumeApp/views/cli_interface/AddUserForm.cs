@@ -9,6 +9,8 @@ namespace ResumeApp.views.cli_interface
     static class AddUserForm
     {
         private static State LoggedInStatus;
+        private static string title = @"";
+
         public static User DisplayAddUserForm(Dictionary<string, User> users, State status) {
             LoggedInStatus = status;
             UserPage.LoggedInStatus = LoggedInStatus;

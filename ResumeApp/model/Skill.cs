@@ -71,5 +71,17 @@ namespace ResumeApp.model
             }
             return dataset;
         }
+
+        internal void delete()
+        {
+            var skills = fetchAll();
+
+            if (skills.ContainsKey(id))
+            {
+                skills.Remove(id);
+            }
+
+            FileHandler.CsvFileWriter(ToDataset(skills.Values.ToList()), @"C:\Users\p128bf6\source\repos\ResumeApp\ResumeApp\pseudoDatabase\skills.csv", ',');
+        }
     }
 }

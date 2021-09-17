@@ -19,9 +19,6 @@ namespace ResumeApp.views.cli_interface
                             ";
         private static string enterYourUsername = @"Enter Username";
         private static string enterYourPassword = @"Enter Password";
-        private static string loginAsGuest = @"";
-        private static string loginAsAdmin = @"";
-        private static string goBack = @"";
         public static string username { get; set; }
         private static string password { get; set; }
         private static Dictionary<string, User> users;

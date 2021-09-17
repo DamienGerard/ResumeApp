@@ -9,7 +9,91 @@ namespace ResumeApp.views.cli_interface
 {
     static class UserPage
     {
-        private static string title = @"";
+        private static string title = @"
+                             _   _                   ______                   
+                            | | | |                  | ___ \                  
+                            | | | | ___   ___  _ __  | |_/ /__ _   __ _   ___ 
+                            | | | |/ __| / _ \| '__| |  __// _` | / _` | / _ \
+                            | |_| |\__ \|  __/| |    | |  | (_| || (_| ||  __/
+                             \___/ |___/ \___||_|    \_|   \__,_| \__, | \___|
+                                                                   __/ |      
+                                                                  |___/       
+                                                                               ";
+        private static string experiencesTitle = @"
+                             _____                          _                              
+                            |  ___|                        (_)                             
+                            | |__ __  __ _ __    ___  _ __  _   ___  _ __    ___  ___  ___ 
+                            |  __|\ \/ /| '_ \  / _ \| '__|| | / _ \| '_ \  / __|/ _ \/ __|
+                            | |___ >  < | |_) ||  __/| |   | ||  __/| | | || (__|  __/\__ \
+                            \____//_/\_\| .__/  \___||_|   |_| \___||_| |_| \___|\___||___/
+                                        | |                                                
+                                        |_|                                                
+                                                                                            ";
+        private static string addExperienceTitle = @"
+                          ___       _      _   _____                          _                         
+                         / _ \     | |    | | |  ___|                        (_)                        
+                        / /_\ \  __| |  __| | | |__ __  __ _ __    ___  _ __  _   ___  _ __    ___  ___ 
+                        |  _  | / _` | / _` | |  __|\ \/ /| '_ \  / _ \| '__|| | / _ \| '_ \  / __|/ _ \
+                        | | | || (_| || (_| | | |___ >  < | |_) ||  __/| |   | ||  __/| | | || (__|  __/
+                        \_| |_/ \__,_| \__,_| \____//_/\_\| .___/ \___|__|   |_| \___||_| |_| \___|\___|
+                                                          | |                                           
+                                                          |_|                                           
+                                                                                                            ";
+        private static string educationsTitle = @"
+                             _____     _                     _    _                    
+                            |  ___|   | |                   | |  (_)                   
+                            | |__   __| | _   _   ___  __ _ | |_  _   ___   _ __   ___ 
+                            |  __| / _` || | | | / __|/ _` || __|| | / _ \ | '_ \ / __|
+                            | |___| (_| || |_| || (__| (_| || |_ | || (_) || | | |\__ \
+                            \____/ \__,_| \__,_| \___|\__,_| \__||_| \___/ |_| |_||___/
+                                                           
+                                                                                        ";
+        private static string addEducationsTitle = @"
+                          ___       _      _   _____     _                     _    _               
+                         / _ \     | |    | | |  ___|   | |                   | |  (_)              
+                        / /_\ \  __| |  __| | | |__   __| | _   _   ___  __ _ | |_  _   ___   _ __  
+                        |  _  | / _` | / _` | |  __| / _` || | | | / __|/ _` || __|| | / _ \ | '_ \ 
+                        | | | || (_| || (_| | | |___| (_| || |_| || (__| (_| || |_ | || (_) || | | |
+                        \_| |_/ \__,_| \__,_| \____/ \__,_| \__,_| \___|\__,_| \__||_| \___/ |_| |_|
+                                                                                
+                                                                                                    ";
+        private static string addModuleTitle = @"
+                              ___       _      _  ___  ___            _         _       
+                             / _ \     | |    | | |  \/  |           | |       | |      
+                            / /_\ \  __| |  __| | | .  . |  ___    __| | _   _ | |  ___ 
+                            |  _  | / _` | / _` | | |\/| | / _ \  / _` || | | || | / _ \
+                            | | | || (_| || (_| | | |  | || (_) || (_| || |_| || ||  __/
+                            \_| |_/ \__,_| \__,_| \_|  |_/ \___/  \__,_| \__,_||_| \___|
+                                                            
+                                                                                            ";
+        private static string skillsTitle = @"
+                                 _____  _     _  _  _      
+                                /  ___|| |   (_)| || |     
+                                \ `--. | | __ _ | || | ___ 
+                                 `--. \| |/ /| || || |/ __|
+                                /\__/ /|   < | || || |\__ \
+                                \____/ |_|\_\|_||_||_||___/
+                           
+                           
+                                                            ";
+        private static string addSkillsTitle = @"
+                              ___       _      _   _____  _     _  _  _ 
+                             / _ \     | |    | | /  ___|| |   (_)| || |
+                            / /_\ \  __| |  __| | \ `--. | | __ _ | || |
+                            |  _  | / _` | / _` |  `--. \| |/ /| || || |
+                            | | | || (_| || (_| | /\__/ /|   < | || || |
+                            \_| |_/ \__,_| \__,_| \____/ |_|\_\|_||_||_|
+                                            
+                                                                        ";
+        private static string contactTitle = @"
+                             _____                _                _   
+                            /  __ \              | |              | |  
+                            | /  \/  ___   _ __  | |_  __ _   ___ | |_ 
+                            | |     / _ \ | '_ \ | __|/ _` | / __|| __|
+                            | \__/\| (_) || | | || |_| (_| || (__ | |_ 
+                             \____/ \___/ |_| |_| \__|\__,_| \___| \__|
+                                           
+                                                                        ";
         private static User SelectedUser;
         public static State LoggedInStatus;
 
@@ -81,7 +165,7 @@ namespace ResumeApp.views.cli_interface
         {
             string input = "";
             while (true) {
-                Console.WriteLine("EXPERIENCES\n");
+                Console.WriteLine(experiencesTitle);
                 foreach (var experience in SelectedUser.experiences.Values)
                 {
                     Console.WriteLine("{0,20}", "Experience Id");
@@ -89,7 +173,7 @@ namespace ResumeApp.views.cli_interface
                     Console.WriteLine("{0,20} {1,20}", "Job Title", "Company Name");
                     Console.WriteLine("{0,20} {1,20}\n", experience.jobTitle, experience.companyName);
                     Console.WriteLine("{0,20} {1,20}", "Starting date", "Ending date");
-                    Console.WriteLine("{0,20} {1,20}\n", experience.start.ToShortDateString(), (experience.end!=null)? experience.end.ToString() : "Present");
+                    Console.WriteLine("{0,20} {1,20}\n", experience.start.ToShortDateString(), (experience.end.Year != 1) ? experience.end.ToShortDateString() : "Present");
                     Console.WriteLine("{0,20}", "Description");
                     Console.WriteLine("{0, 100}\n\n", experience.description);
                 }
@@ -109,7 +193,10 @@ namespace ResumeApp.views.cli_interface
                     else
                     {
                         var newExperience = DisplayAddExperienceForm(SelectedUser.username);
-                        if(newExperience!=null) SelectedUser.experiences.Add(newExperience.id, newExperience);
+                        if (newExperience != null) {
+                            newExperience.save();
+                            SelectedUser.experiences.Add(newExperience.id, newExperience);
+                        }
                     }
                         
                 }
@@ -120,13 +207,14 @@ namespace ResumeApp.views.cli_interface
                     {
                         Console.WriteLine($"ERROR\n{experienceToDelete} does not exist!\nPlease, try again.");
                     }
-                    else if (LoggedInStatus.loggedInAs != UserType.admin && !LoggedInStatus.user.educations.ContainsKey(experienceToDelete))
+                    else if (LoggedInStatus.loggedInAs != UserType.admin && !LoggedInStatus.user.experiences.ContainsKey(experienceToDelete))
                     {
                         Console.WriteLine("ERROR\nUnauthorised action!\n");
                     }
-                    else {
+                    else
+                    {
+                        SelectedUser.experiences[experienceToDelete].delete();
                         SelectedUser.experiences.Remove(experienceToDelete);
-                        (from experience in SelectedUser.experiences.Values select experience).First().save(); //By saving just one random experience, the deletion also take effect in the database/file.
                     }
                 }
                 else if (!SelectedUser.experiences.ContainsKey(input))
@@ -151,7 +239,7 @@ namespace ResumeApp.views.cli_interface
                 Console.WriteLine("{0,20} {1,20}", "Job Title", "Company Name");
                 Console.WriteLine("{0,20} {1,20}\n", experience.jobTitle, experience.companyName);
                 Console.WriteLine("{0,20} {1,20}", "Starting date", "Ending date");
-                Console.WriteLine("{0,20} {1,20}\n", experience.start.ToShortDateString(), (experience.end != null) ? ((DateTime)experience.end).ToShortDateString() : "Present");
+                Console.WriteLine("{0,20} {1,20}\n", experience.start.ToShortDateString(), (experience.end.Year != 1) ? experience.end.ToShortDateString() : "Present");
                 Console.WriteLine("{0,20}", "Description");
                 Console.WriteLine("{0, 100}\n\n", experience.description);
 
@@ -206,13 +294,13 @@ namespace ResumeApp.views.cli_interface
             string jobTitle;
             string companyName;
             DateTime startDate;
-            DateTime? endDate;
+            DateTime endDate;
             string description;
 
             string input = "";
             while (true)
             {
-                Console.WriteLine("ADD EXPERIENCE\n");
+                Console.WriteLine(addExperienceTitle);
                 Console.WriteLine("Enter the job title: ");
                 input = Console.ReadLine();
                 if (input == "<-") return null;
@@ -244,7 +332,7 @@ namespace ResumeApp.views.cli_interface
                 }
                 else if (input == "")
                 {
-                    endDate = null;
+                    endDate = default;
                 }
                 else {
                     try
@@ -274,7 +362,7 @@ namespace ResumeApp.views.cli_interface
             string input = "";
             while (true)
             {
-                Console.WriteLine("EDUCATIONS\n\n");
+                Console.WriteLine(educationsTitle);
                 Console.WriteLine("{0,20} {1,20} {2,20} {3,20}", "Education Id", "Certification", "Institution", "Type");
                 foreach (var education in SelectedUser.educations.Values)
                 {
@@ -325,8 +413,8 @@ namespace ResumeApp.views.cli_interface
                     }
                     else
                     {
+                        SelectedUser.educations[educationToDelete].delete();
                         SelectedUser.educations.Remove(educationToDelete);
-                        (from education in SelectedUser.educations.Values select education).First().save(); //By saving just one random education, the deletion also take effect in the database/file.
                     }
                 }
                 else if (!SelectedUser.educations.ContainsKey(input))
@@ -417,8 +505,8 @@ namespace ResumeApp.views.cli_interface
                     }
                     else
                     {
+                        ((University)SelectedUser.educations[education.id]).modules[moduleToDelete].delete();
                         ((University)SelectedUser.educations[education.id]).modules.Remove(moduleToDelete);
-                        (from module in ((University)SelectedUser.educations[education.id]).modules.Values select education).First().save(); //By saving just one random education, the deletion also take effect in the database/file.
                     }
                 }
                 else if (!SelectedUser.educations.ContainsKey(input))
@@ -521,8 +609,8 @@ namespace ResumeApp.views.cli_interface
                     }
                     else
                     {
+                        module.deleteProject(projectToDelete);
                         module.projects.Remove(projectToDelete);
-                        module.save();
                     }
                 }
                 else
@@ -543,7 +631,7 @@ namespace ResumeApp.views.cli_interface
             string input = "";
             while (true)
             {
-                Console.WriteLine("ADD MODULE\n");
+                Console.WriteLine(addModuleTitle);
                 Console.WriteLine("Enter the module name: ");
                 input = Console.ReadLine();
                 if (input == "<-") return null;
@@ -596,7 +684,7 @@ namespace ResumeApp.views.cli_interface
             string input = "";
             while (true)
             {
-                Console.WriteLine("ADD EDUCATION\n");
+                Console.WriteLine(addEducationsTitle);
                 Console.WriteLine("Enter the certification: ");
                 input = Console.ReadLine();
                 if (input == "<-") return null;
@@ -663,7 +751,7 @@ namespace ResumeApp.views.cli_interface
             string input = "";
             while (true)
             {
-                Console.WriteLine("Skills\n\n");
+                Console.WriteLine(skillsTitle);
                 Console.WriteLine("{0,20} {1,20} {2,20}", "Skill Id", "Skill Name", "Type");
                 foreach (var skill in SelectedUser.skills.Values)
                 {
@@ -707,8 +795,8 @@ namespace ResumeApp.views.cli_interface
                     }
                     else
                     {
-                        SelectedUser.educations.Remove(skillToDelete);
-                        (from skill in SelectedUser.skills.Values select skill).First().save(); //By saving just one random skill, the deletion also take effect in the database/file.
+                        SelectedUser.skills[skillToDelete].delete();
+                        SelectedUser.skills.Remove(skillToDelete);
                     }
                 }
                 else if (!SelectedUser.skills.ContainsKey(input))
@@ -799,7 +887,7 @@ namespace ResumeApp.views.cli_interface
             string input = "";
             while (true)
             {
-                Console.WriteLine("ADD SKILL\n");
+                Console.WriteLine(addSkillsTitle);
                 Console.WriteLine("Enter the skill name: ");
                 input = Console.ReadLine();
                 if (input == "<-") return null;
@@ -842,7 +930,7 @@ namespace ResumeApp.views.cli_interface
             string input = "";
             while (true)
             {
-                Console.WriteLine("CONTACT");
+                Console.WriteLine(contactTitle);
 
                 Console.WriteLine("{0,-20}: {1,20}", "Email address", SelectedUser.contact.email);
                 Console.WriteLine("{0,-20}: {1,20}", "Phone number", SelectedUser.contact.phoneNum);
@@ -912,7 +1000,7 @@ namespace ResumeApp.views.cli_interface
                     Console.Write("Enter the new link url: ");
                     var newLinkUrl = Console.ReadLine();
                     SelectedUser.contact.editLink(newLinkTitle, newLinkUrl);
-                    SelectedUser.contact.save(); //By saving just one random link, the deletion also take effect in the database/file.
+                    SelectedUser.contact.save();
                 }
                 else if (input.StartsWith("delete "))
                 {
@@ -923,8 +1011,8 @@ namespace ResumeApp.views.cli_interface
                     }
                     else
                     {
+                        SelectedUser.contact.deleteLink(linkToDelete);
                         SelectedUser.contact.links.Remove(linkToDelete);
-                        SelectedUser.contact.save(); //By saving just one random link, the deletion also take effect in the database/file.
                     }
                 }
                 else

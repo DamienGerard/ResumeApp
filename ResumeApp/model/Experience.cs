@@ -12,11 +12,11 @@ namespace ResumeApp.model
         public string companyName { get; set; }
         public string jobTitle { get; set; }
         public DateTime start { get; set; }
-        public DateTime? end { get; set; }
+        public DateTime end { get; set; }
         public string description { get; set; }
         public string username { get; private set; }
 
-        public Experience(string id, string compName, string jobTitle, DateTime start, DateTime? end, string desc, string username) {
+        public Experience(string id, string compName, string jobTitle, DateTime start, DateTime end, string desc, string username) {
             this.id = id;
             this.companyName = compName;
             this.jobTitle = jobTitle;
@@ -62,8 +62,20 @@ namespace ResumeApp.model
             FileHandler.CsvFileWriter(ToDataset(experiences.Values.ToList()), @"C:\Users\p128bf6\source\repos\ResumeApp\ResumeApp\pseudoDatabase\experiences.csv", ',');
         }
 
+        internal void delete()
+        {
+            var experiences = fetchAll();
 
-        public List<String> ToStringList() => new List<String>() { username, id, companyName, jobTitle, start.ToString(), end.ToString() };
+            if (experiences.ContainsKey(id))
+            {
+                experiences.Remove(id);
+            }
+
+            FileHandler.CsvFileWriter(ToDataset(experiences.Values.ToList()), @"C:\Users\p128bf6\source\repos\ResumeApp\ResumeApp\pseudoDatabase\experiences.csv", ',');
+        }
+
+
+        public List<String> ToStringList() => new List<String>() { username, id, companyName, jobTitle, start.ToShortDateString(), ((DateTime)end).ToShortDateString() };
 
         public static List<List<String>> ToDataset(List<Experience> experiences)
         {

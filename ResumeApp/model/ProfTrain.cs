@@ -31,9 +31,9 @@ namespace ResumeApp.model
 
             foreach (var educationRow in rawEducation)
             {
-                if (educationRow[4] != "prof_train") continue;
+                if (educationRow[4] != "professional") continue;
 
-                profTrains.Add(educationRow[1], new ProfTrain(educationRow[1], educationRow[2], educationRow[3], profTrainDictionary[educationRow[0]], educationRow[0]));
+                profTrains.Add(educationRow[1], new ProfTrain(educationRow[1], educationRow[2], educationRow[3], profTrainDictionary[educationRow[1]], educationRow[0]));
             }
 
             return profTrains;
@@ -53,7 +53,7 @@ namespace ResumeApp.model
                 profTrains.Add(id, this);
             }
 
-            FileHandler.CsvFileWriter(ToDataset(profTrains.Values.ToList()), @"C:\Users\p128bf6\source\repos\ResumeApp\ResumeApp\pseudoDatabase\experiences.csv", ',');
+            FileHandler.CsvFileWriter(ToDataset(profTrains.Values.ToList()), @"C:\Users\p128bf6\source\repos\ResumeApp\ResumeApp\pseudoDatabase\professionalTraining.csv", ',');
         }
 
 

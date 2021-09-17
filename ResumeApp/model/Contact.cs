@@ -77,5 +77,17 @@ namespace ResumeApp.model
             }
             return dataset;
         }
+
+        internal void deleteLink(string linkToDelete)
+        {
+            var contacts = fetchAll();
+
+            if (contacts.ContainsKey(username) && contacts[username].links.ContainsKey(linkToDelete))
+            {
+                contacts[username].links.Remove(linkToDelete);
+            }
+
+            FileHandler.CsvFileWriter(ToDataset(contacts.Values.ToList()), @"C:\Users\p128bf6\source\repos\ResumeApp\ResumeApp\pseudoDatabase\userLinks.csv", ',');
+        }
     }
 }

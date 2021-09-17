@@ -94,5 +94,45 @@ namespace ResumeApp.model
             }
             return dataset;
         }
+
+        internal void delete()
+        {
+            var modules = fetchAll();
+
+            if (modules.ContainsKey(id))
+            {
+                modules.Remove(id);
+            }
+
+            deleteProjects();
+
+            FileHandler.CsvFileWriter(ToDataset(modules.Values.ToList()), @"C:\Users\p128bf6\source\repos\ResumeApp\ResumeApp\pseudoDatabase\modules.csv", ',');
+        }
+
+        private void deleteProjects()
+        {
+            var allProjects = fetchAllProject();
+            foreach (var project in projects)
+            {
+                if (allProjects.ContainsKey($"{id}_{project.Key}"))
+                {
+                    allProjects.Remove($"{id}_{project.Key}");
+                }
+            }
+
+            FileHandler.CsvFileWriter(allProjects.Values.ToList(), @"C:\Users\p128bf6\source\repos\ResumeApp\ResumeApp\pseudoDatabase\projects.csv", ',');
+        }
+
+        internal void deleteProject(string projectToDelete)
+        {
+            var allProjects = fetchAllProject();
+
+            if (allProjects.ContainsKey($"{id}_{projectToDelete}"))
+            {
+                allProjects.Remove($"{id}_{projectToDelete}");
+            }
+
+            FileHandler.CsvFileWriter(allProjects.Values.ToList(), @"C:\Users\p128bf6\source\repos\ResumeApp\ResumeApp\pseudoDatabase\projects.csv", ',');
+        }
     }
 }
