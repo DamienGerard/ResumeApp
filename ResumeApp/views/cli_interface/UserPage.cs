@@ -151,7 +151,7 @@ namespace ResumeApp.views.cli_interface
                 Console.WriteLine("{0,20} {1,20}", "Job Title", "Company Name");
                 Console.WriteLine("{0,20} {1,20}\n", experience.jobTitle, experience.companyName);
                 Console.WriteLine("{0,20} {1,20}", "Starting date", "Ending date");
-                Console.WriteLine("{0,20} {1,20}\n", experience.start.ToShortDateString(), (experience.end != null) ? experience.end.ToString() : "Present");
+                Console.WriteLine("{0,20} {1,20}\n", experience.start.ToShortDateString(), (experience.end != null) ? ((DateTime)experience.end).ToShortDateString() : "Present");
                 Console.WriteLine("{0,20}", "Description");
                 Console.WriteLine("{0, 100}\n\n", experience.description);
 
@@ -206,7 +206,7 @@ namespace ResumeApp.views.cli_interface
             string jobTitle;
             string companyName;
             DateTime startDate;
-            DateTime endDate;
+            DateTime? endDate;
             string description;
 
             string input = "";
@@ -244,7 +244,7 @@ namespace ResumeApp.views.cli_interface
                 }
                 else if (input == "")
                 {
-                    endDate = default;
+                    endDate = null;
                 }
                 else {
                     try
