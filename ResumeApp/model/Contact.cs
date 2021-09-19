@@ -37,9 +37,9 @@ namespace ResumeApp.model
         internal static Dictionary<String, Contact> fetchAll(List<List<String>> rawUsers=null)
         {
             if (rawUsers==null) {
-                rawUsers= FileHandler.CsvFileReader(@"C:\Users\p128bf6\source\repos\ResumeApp\ResumeApp\pseudoDatabase\users.csv", ',');
+                rawUsers= FileHandler.CsvFileReader(@"pseudoDatabase\users.csv", ',');
             }
-            var rawLinks = FileHandler.CsvFileReader(@"C:\Users\p128bf6\source\repos\ResumeApp\ResumeApp\pseudoDatabase\userLinks.csv", ',');
+            var rawLinks = FileHandler.CsvFileReader(@"pseudoDatabase\userLinks.csv", ',');
 
             var contacts = new Dictionary<String, Contact>();
             foreach (var rawUser in rawUsers) {
@@ -61,7 +61,7 @@ namespace ResumeApp.model
                 contacts.Add(username, this);
             }
 
-            FileHandler.CsvFileWriter(ToDataset(contacts.Values.ToList()), @"C:\Users\p128bf6\source\repos\ResumeApp\ResumeApp\pseudoDatabase\userLinks.csv", ',');
+            FileHandler.CsvFileWriter(ToDataset(contacts.Values.ToList()), @"pseudoDatabase\userLinks.csv", ',');
         }
 
         //public List<String> ToStringList() => new List<String>() { username, id, companyName, jobTitle, start.ToString(), end.ToString() };
@@ -87,7 +87,7 @@ namespace ResumeApp.model
                 contacts[username].links.Remove(linkToDelete);
             }
 
-            FileHandler.CsvFileWriter(ToDataset(contacts.Values.ToList()), @"C:\Users\p128bf6\source\repos\ResumeApp\ResumeApp\pseudoDatabase\userLinks.csv", ',');
+            FileHandler.CsvFileWriter(ToDataset(contacts.Values.ToList()), @"pseudoDatabase\userLinks.csv", ',');
         }
     }
 }

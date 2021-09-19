@@ -18,9 +18,9 @@ namespace ResumeApp.model
         {
             if (rawEducation == null)
             {
-                rawEducation = FileHandler.CsvFileReader(@"C:\Users\p128bf6\source\repos\ResumeApp\ResumeApp\pseudoDatabase\education.csv", ',');
+                rawEducation = FileHandler.CsvFileReader(@"pseudoDatabase\education.csv", ',');
             }
-            var rawUniversities = FileHandler.CsvFileReader(@"C:\Users\p128bf6\source\repos\ResumeApp\ResumeApp\pseudoDatabase\universityDetails.csv", ',');
+            var rawUniversities = FileHandler.CsvFileReader(@"pseudoDatabase\universityDetails.csv", ',');
 
             Dictionary<String, Module> retreivedModule = Module.fetchAll();
             var universities = new Dictionary<String, University>();
@@ -58,7 +58,7 @@ namespace ResumeApp.model
 
             foreach (var module in modules) module.Value.save();
 
-            FileHandler.CsvFileWriter(ToDataset(universitiesDetails.Values.ToList()), @"C:\Users\p128bf6\source\repos\ResumeApp\ResumeApp\pseudoDatabase\universityDetails.csv", ',');
+            FileHandler.CsvFileWriter(ToDataset(universitiesDetails.Values.ToList()), @"pseudoDatabase\universityDetails.csv", ',');
         }
 
         public static List<List<String>> ToDataset(List<University> universitiesDetails)

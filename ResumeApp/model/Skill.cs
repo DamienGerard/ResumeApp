@@ -30,7 +30,7 @@ namespace ResumeApp.model
         {
             Dictionary<String, Skill> skills = new Dictionary<String, Skill>();
 
-            var rawSkills = FileHandler.CsvFileReader(@"C:\Users\p128bf6\source\repos\ResumeApp\ResumeApp\pseudoDatabase\skills.csv", ',');
+            var rawSkills = FileHandler.CsvFileReader(@"pseudoDatabase\skills.csv", ',');
 
             foreach (var rawSkill in rawSkills) {
                 skills.Add(rawSkill[1], new Skill(rawSkill[1],
@@ -57,7 +57,7 @@ namespace ResumeApp.model
                 skills.Add(id, this);
             }
 
-            FileHandler.CsvFileWriter(ToDataset(skills.Values.ToList()), @"C:\Users\p128bf6\source\repos\ResumeApp\ResumeApp\pseudoDatabase\skills.csv", ',');
+            FileHandler.CsvFileWriter(ToDataset(skills.Values.ToList()), @"pseudoDatabase\skills.csv", ',');
         }
 
         public List<String> ToStringList() => new List<String>() { username, id, name, description, proficiency.ToString(), (skillType == SkillType.personal) ? "personal" : "technological" };
@@ -81,7 +81,7 @@ namespace ResumeApp.model
                 skills.Remove(id);
             }
 
-            FileHandler.CsvFileWriter(ToDataset(skills.Values.ToList()), @"C:\Users\p128bf6\source\repos\ResumeApp\ResumeApp\pseudoDatabase\skills.csv", ',');
+            FileHandler.CsvFileWriter(ToDataset(skills.Values.ToList()), @"pseudoDatabase\skills.csv", ',');
         }
     }
 }

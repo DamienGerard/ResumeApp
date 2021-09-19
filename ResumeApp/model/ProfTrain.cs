@@ -18,9 +18,9 @@ namespace ResumeApp.model
         {
             if (rawEducation == null)
             {
-                rawEducation = FileHandler.CsvFileReader(@"C:\Users\p128bf6\source\repos\ResumeApp\ResumeApp\pseudoDatabase\education.csv", ',');
+                rawEducation = FileHandler.CsvFileReader(@"pseudoDatabase\education.csv", ',');
             }
-            var rawProftrain = FileHandler.CsvFileReader(@"C:\Users\p128bf6\source\repos\ResumeApp\ResumeApp\pseudoDatabase\professionalTraining.csv", ',');
+            var rawProftrain = FileHandler.CsvFileReader(@"pseudoDatabase\professionalTraining.csv", ',');
 
             Dictionary<String, String> profTrainDictionary = new Dictionary<String, String>();
             foreach (var profTrainRow in rawProftrain) {
@@ -53,7 +53,7 @@ namespace ResumeApp.model
                 profTrains.Add(id, this);
             }
 
-            FileHandler.CsvFileWriter(ToDataset(profTrains.Values.ToList()), @"C:\Users\p128bf6\source\repos\ResumeApp\ResumeApp\pseudoDatabase\professionalTraining.csv", ',');
+            FileHandler.CsvFileWriter(ToDataset(profTrains.Values.ToList()), @"pseudoDatabase\professionalTraining.csv", ',');
         }
 
 

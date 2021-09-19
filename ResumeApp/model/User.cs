@@ -41,7 +41,7 @@ namespace ResumeApp.model
             Dictionary<String, Education> retreivedEducation = Education.fetchAll();
             Dictionary<String, Skill> retreivedSkills = Skill.fetchAll();
 
-            var userData = FileHandler.CsvFileReader(@"C:\Users\p128bf6\source\repos\ResumeApp\ResumeApp\pseudoDatabase\users.csv", ',');
+            var userData = FileHandler.CsvFileReader(@"pseudoDatabase\users.csv", ',');
             Dictionary<String, Contact> retreivedContacts = Contact.fetchAll(userData);
 
             var users = new Dictionary<String, User>();
@@ -79,7 +79,7 @@ namespace ResumeApp.model
             foreach (var skill in skills) skill.Value.save();
             contact.save();
 
-            FileHandler.CsvFileWriter(ToDataset(users.Values.ToList()), @"C:\Users\p128bf6\source\repos\ResumeApp\ResumeApp\pseudoDatabase\users.csv", ',');
+            FileHandler.CsvFileWriter(ToDataset(users.Values.ToList()), @"pseudoDatabase\users.csv", ',');
         }
 
 

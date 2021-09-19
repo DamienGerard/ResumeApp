@@ -28,7 +28,7 @@ namespace ResumeApp.model
 
         internal static Dictionary<String, Education> fetchAll()
         {
-            var educationData = FileHandler.CsvFileReader(@"C:\Users\p128bf6\source\repos\ResumeApp\ResumeApp\pseudoDatabase\education.csv", ',');
+            var educationData = FileHandler.CsvFileReader(@"pseudoDatabase\education.csv", ',');
 
             Dictionary<String, University> retreivedUniversities = University.fetchAll(educationData);
             Dictionary<String, ProfTrain> retreivedProfTrains = ProfTrain.fetchAll(educationData);
@@ -62,7 +62,7 @@ namespace ResumeApp.model
                 educations.Add(id, this);
             }
 
-            FileHandler.CsvFileWriter(ToDataset(educations.Values.ToList()), @"C:\Users\p128bf6\source\repos\ResumeApp\ResumeApp\pseudoDatabase\education.csv", ',');
+            FileHandler.CsvFileWriter(ToDataset(educations.Values.ToList()), @"pseudoDatabase\education.csv", ',');
         }
 
 
@@ -86,7 +86,7 @@ namespace ResumeApp.model
                 educations.Remove(id);
             }
 
-            FileHandler.CsvFileWriter(ToDataset(educations.Values.ToList()), @"C:\Users\p128bf6\source\repos\ResumeApp\ResumeApp\pseudoDatabase\education.csv", ',');
+            FileHandler.CsvFileWriter(ToDataset(educations.Values.ToList()), @"pseudoDatabase\education.csv", ',');
         }
     }
 }
