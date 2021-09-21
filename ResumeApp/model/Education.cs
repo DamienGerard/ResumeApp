@@ -88,5 +88,12 @@ namespace ResumeApp.model
 
             FileHandler.CsvFileWriter(ToDataset(educations.Values.ToList()), @"pseudoDatabase\education.csv", ',');
         }
+
+        virtual public void display() {
+
+            Console.WriteLine("{0,-20}: {1,20}", "Education Id", id);
+            Console.WriteLine("{0,-20}: {1,20}", "Certification", certification);
+            Console.WriteLine("{0,-20}: {1,20}", "Institution", institution);
+        }
     }
 }

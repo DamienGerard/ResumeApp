@@ -73,5 +73,17 @@ namespace ResumeApp.model
             }
             return dataset;
         }
+
+        public override void display() {
+            base.display();
+            Console.WriteLine("{0,-20}: {1,20}", "Type", "University Training");
+            Console.WriteLine("Module");
+            Console.WriteLine("{0,20} {1,20}", "Module Id", "Module name");
+            foreach (var module in modules.Values)
+            {
+                Console.WriteLine("{0,20} {1,20}", module.id, module.name);
+            }
+            Console.WriteLine("\n\nEnter a command to proceed(e.g., edit certification, delete <module_id>, <module_id>, etc...)");
+        }
     }
 }

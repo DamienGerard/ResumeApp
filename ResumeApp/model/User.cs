@@ -56,7 +56,7 @@ namespace ResumeApp.model
                         userDataRow[5],
                         (from experience in retreivedExperiences where experience.Value.username == userDataRow[0] select experience.Value).ToDictionary(experience => experience.id, experience => experience),
                         (from education in retreivedEducation where education.Value.username == userDataRow[0] select education.Value).ToDictionary(education => education.id, education => education),
-                        (from skill in retreivedSkills where skill.Key == userDataRow[0] select skill.Value).ToDictionary(skill => skill.id, skill => skill),
+                        (from skill in retreivedSkills where skill.Value.username == userDataRow[0] select skill.Value).ToDictionary(skill => skill.id, skill => skill),
                         (from contact in retreivedContacts where contact.Key == userDataRow[0] select contact.Value).ElementAt(0)
                     ));
             }
