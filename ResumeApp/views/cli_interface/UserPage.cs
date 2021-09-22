@@ -491,7 +491,7 @@ namespace ResumeApp.views.cli_interface
                         ((University)SelectedUser.educations[education.id]).modules.Remove(moduleToDelete);
                     }
                 }
-                else if (!SelectedUser.educations.ContainsKey(input))
+                else if (education.educationType==EducationType.university && !((University)SelectedUser.educations[education.id]).modules.ContainsKey(input))
                 {
                     Console.WriteLine($"ERROR\n{input} does not exist!\nPlease, try again.");
                 }
@@ -568,7 +568,8 @@ namespace ResumeApp.views.cli_interface
                         Console.Write("Enter the new project title: ");
                         var newProjectTitle = Console.ReadLine();
                         var projectDescription = module.projects[projectToEdit];
-                        SelectedUser.contact.links.Remove(projectToEdit);
+                        module.projects.Remove(projectToEdit);
+                        module.deleteProject(projectToEdit);
                         module.projects.Add(newProjectTitle, projectDescription);
                         module.save();
                     }

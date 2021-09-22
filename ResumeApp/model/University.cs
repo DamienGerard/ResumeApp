@@ -36,7 +36,7 @@ namespace ResumeApp.model
                     modules.Add(moduleId, retreivedModule[moduleId]);
                 }
 
-                universities.Add(educationRow[1], new University(educationRow[1], educationRow[2], educationRow[3], modules, educationRow[0]));
+                universities.Add(educationRow[1], new University(educationRow[1], educationRow[2], educationRow[3], modules.ToDictionary(entry => entry.Key, entry => entry.Value), educationRow[0]));
                 modules.Clear();
             }
             return universities;

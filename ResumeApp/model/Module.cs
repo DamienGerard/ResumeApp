@@ -34,7 +34,7 @@ namespace ResumeApp.model
                 foreach (var project in projectsOfModule) {
                     projects.Add(project[1], project[2]);
                 }
-                modules.Add(moduleRow[0], new Module(moduleRow[0], moduleRow[1], moduleRow[2], projects));
+                modules.Add(moduleRow[0], new Module(moduleRow[0], moduleRow[1], moduleRow[2], projects.ToDictionary(entry => entry.Key, entry => entry.Value)));
                 projects.Clear();
             }
             return modules;
