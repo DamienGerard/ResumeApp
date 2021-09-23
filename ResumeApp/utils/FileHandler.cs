@@ -8,8 +8,11 @@ namespace ResumeApp.utils
 {
     class FileHandler
     {
+        private static string Relativer = @"..\..\..\";
+
         public static List<List<string>> CsvFileReader(string filename, char delimeter)
         {
+            filename = Relativer + filename;
             var data = new List<List<string>>();
 
             // By using StreamReader
@@ -34,6 +37,7 @@ namespace ResumeApp.utils
 
         public static void CsvFileWriter(List<List<string>> data, string filename, char delimeter)
         {
+            filename = Relativer + filename;
             StreamWriter sw = new StreamWriter(filename);
 
             foreach (var line in data) {

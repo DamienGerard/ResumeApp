@@ -18,9 +18,9 @@ namespace ResumeApp.model
         {
             if (rawEducation == null)
             {
-                rawEducation = FileHandler.CsvFileReader(@"C:\Users\p128bf6\source\repos\ResumeApp\ResumeApp\pseudoDatabase\education.csv", ',');
+                rawEducation = FileHandler.CsvFileReader(@"pseudoDatabase\education.csv", ',');
             }
-            var rawProftrain = FileHandler.CsvFileReader(@"C:\Users\p128bf6\source\repos\ResumeApp\ResumeApp\pseudoDatabase\professionalTraining.csv", ',');
+            var rawProftrain = FileHandler.CsvFileReader(@"pseudoDatabase\professionalTraining.csv", ',');
 
             Dictionary<String, String> profTrainDictionary = new Dictionary<String, String>();
             foreach (var profTrainRow in rawProftrain) {
@@ -53,7 +53,7 @@ namespace ResumeApp.model
                 profTrains.Add(id, this);
             }
 
-            FileHandler.CsvFileWriter(ToDataset(profTrains.Values.ToList()), @"C:\Users\p128bf6\source\repos\ResumeApp\ResumeApp\pseudoDatabase\professionalTraining.csv", ',');
+            FileHandler.CsvFileWriter(ToDataset(profTrains.Values.ToList()), @"pseudoDatabase\professionalTraining.csv", ',');
         }
 
 
@@ -67,6 +67,15 @@ namespace ResumeApp.model
                 dataset.Add(profTrain.ToStringList());
             }
             return dataset;
+        }
+
+        public override void display()
+        {
+            base.display();
+            Console.WriteLine("{0,-20}: {1,20}", "Type", "Professional Training");
+
+            Console.WriteLine("{0,-20}: {1,20}", "Description", description);
+            Console.WriteLine("\n\nEnter a command to proceed(e.g., edit certification, delete <module_id>, <module_id>, etc...)");
         }
     }
 }

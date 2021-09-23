@@ -30,7 +30,7 @@ namespace ResumeApp.model
         {
             Dictionary<String, Experience> experiences = new Dictionary<String, Experience>();
 
-            var rawExperiences = FileHandler.CsvFileReader(@"C:\Users\p128bf6\source\repos\ResumeApp\ResumeApp\pseudoDatabase\experiences.csv", ',');
+            var rawExperiences = FileHandler.CsvFileReader(@"pseudoDatabase\experiences.csv", ',');
 
             foreach (var rawExperience in rawExperiences)
             {
@@ -59,7 +59,7 @@ namespace ResumeApp.model
                 experiences.Add(id, this);
             }
 
-            FileHandler.CsvFileWriter(ToDataset(experiences.Values.ToList()), @"C:\Users\p128bf6\source\repos\ResumeApp\ResumeApp\pseudoDatabase\experiences.csv", ',');
+            FileHandler.CsvFileWriter(ToDataset(experiences.Values.ToList()), @"pseudoDatabase\experiences.csv", ',');
         }
 
         internal void delete()
@@ -71,7 +71,7 @@ namespace ResumeApp.model
                 experiences.Remove(id);
             }
 
-            FileHandler.CsvFileWriter(ToDataset(experiences.Values.ToList()), @"C:\Users\p128bf6\source\repos\ResumeApp\ResumeApp\pseudoDatabase\experiences.csv", ',');
+            FileHandler.CsvFileWriter(ToDataset(experiences.Values.ToList()), @"pseudoDatabase\experiences.csv", ',');
         }
 
 

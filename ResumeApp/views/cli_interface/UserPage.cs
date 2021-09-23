@@ -423,6 +423,7 @@ namespace ResumeApp.views.cli_interface
                 }
                 else
                 {
+                    _ = SelectedUser;
                     DisplayEducationScreen(SelectedUser.educations[input]);
                 }
                 Console.WriteLine("\nEnter \"<-\", at any point, to go back.\n");
@@ -435,26 +436,7 @@ namespace ResumeApp.views.cli_interface
 
             while (true)
             {
-                Console.WriteLine("{0,-20}: {1,20}", "Education Id", education.id);
-                Console.WriteLine("{0,-20}: {1,20}", "Certification", education.certification);
-                Console.WriteLine("{0,-20}: {1,20}", "Institution", education.institution);
-                Console.WriteLine("{0,-20}: {1,20}", "Type", (education.educationType == EducationType.professional) ? "Professional Training" : "University Training");
-
-                if (education.educationType == EducationType.university)
-                {
-                    Console.WriteLine("Module");
-                    Console.WriteLine("{0,20} {1,20}", "Module Id", "Module name");
-                    foreach (var module in ((University)education).modules.Values)
-                    {
-                        Console.WriteLine("{0,20} {1,20}", module.id, module.name);
-                    }
-                    Console.WriteLine("\n\nEnter a command to proceed(e.g., edit certification, delete <module_id>, <module_id>, etc...)");
-
-                }
-                else {
-                    Console.WriteLine("{0,-20}: {1,20}", "Description", ((ProfTrain)education).description);
-                    Console.WriteLine("\n\nEnter a command to proceed(e.g., edit certification, delete <module_id>, <module_id>, etc...)");
-                }
+                education.display();
                 input = Console.ReadLine();
                 //input = input.ToLower();
                 if (input == "<-")
@@ -509,7 +491,7 @@ namespace ResumeApp.views.cli_interface
                         ((University)SelectedUser.educations[education.id]).modules.Remove(moduleToDelete);
                     }
                 }
-                else if (!SelectedUser.educations.ContainsKey(input))
+                else if (education.educationType==EducationType.university && !((University)SelectedUser.educations[education.id]).modules.ContainsKey(input))
                 {
                     Console.WriteLine($"ERROR\n{input} does not exist!\nPlease, try again.");
                 }
@@ -586,7 +568,8 @@ namespace ResumeApp.views.cli_interface
                         Console.Write("Enter the new project title: ");
                         var newProjectTitle = Console.ReadLine();
                         var projectDescription = module.projects[projectToEdit];
-                        SelectedUser.contact.links.Remove(projectToEdit);
+                        module.projects.Remove(projectToEdit);
+                        module.deleteProject(projectToEdit);
                         module.projects.Add(newProjectTitle, projectDescription);
                         module.save();
                     }

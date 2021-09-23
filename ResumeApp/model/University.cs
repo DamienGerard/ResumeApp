@@ -18,9 +18,9 @@ namespace ResumeApp.model
         {
             if (rawEducation == null)
             {
-                rawEducation = FileHandler.CsvFileReader(@"C:\Users\p128bf6\source\repos\ResumeApp\ResumeApp\pseudoDatabase\education.csv", ',');
+                rawEducation = FileHandler.CsvFileReader(@"pseudoDatabase\education.csv", ',');
             }
-            var rawUniversities = FileHandler.CsvFileReader(@"C:\Users\p128bf6\source\repos\ResumeApp\ResumeApp\pseudoDatabase\universityDetails.csv", ',');
+            var rawUniversities = FileHandler.CsvFileReader(@"pseudoDatabase\universityDetails.csv", ',');
 
             Dictionary<String, Module> retreivedModule = Module.fetchAll();
             var universities = new Dictionary<String, University>();
@@ -36,7 +36,7 @@ namespace ResumeApp.model
                     modules.Add(moduleId, retreivedModule[moduleId]);
                 }
 
-                universities.Add(educationRow[1], new University(educationRow[1], educationRow[2], educationRow[3], modules, educationRow[0]));
+                universities.Add(educationRow[1], new University(educationRow[1], educationRow[2], educationRow[3], modules.ToDictionary(entry => entry.Key, entry => entry.Value), educationRow[0]));
                 modules.Clear();
             }
             return universities;
@@ -58,7 +58,7 @@ namespace ResumeApp.model
 
             foreach (var module in modules) module.Value.save();
 
-            FileHandler.CsvFileWriter(ToDataset(universitiesDetails.Values.ToList()), @"C:\Users\p128bf6\source\repos\ResumeApp\ResumeApp\pseudoDatabase\universityDetails.csv", ',');
+            FileHandler.CsvFileWriter(ToDataset(universitiesDetails.Values.ToList()), @"pseudoDatabase\universityDetails.csv", ',');
         }
 
         public static List<List<String>> ToDataset(List<University> universitiesDetails)
@@ -72,6 +72,18 @@ namespace ResumeApp.model
                 
             }
             return dataset;
+        }
+
+        public override void display() {
+            base.display();
+            Console.WriteLine("{0,-20}: {1,20}", "Type", "University Training");
+            Console.WriteLine("Module");
+            Console.WriteLine("{0,20} {1,20}", "Module Id", "Module name");
+            foreach (var module in modules.Values)
+            {
+                Console.WriteLine("{0,20} {1,20}", module.id, module.name);
+            }
+            Console.WriteLine("\n\nEnter a command to proceed(e.g., edit certification, delete <module_id>, <module_id>, etc...)");
         }
     }
 }

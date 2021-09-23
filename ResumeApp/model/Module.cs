@@ -23,7 +23,7 @@ namespace ResumeApp.model
         {
             Dictionary<String, Module> modules = new Dictionary<String, Module>();
 
-            var rawModules = FileHandler.CsvFileReader(@"C:\Users\p128bf6\source\repos\ResumeApp\ResumeApp\pseudoDatabase\modules.csv", ',');
+            var rawModules = FileHandler.CsvFileReader(@"pseudoDatabase\modules.csv", ',');
             var projectsDictionary = fetchAllProject();
 
             Dictionary<String, String> projects = new Dictionary<String, String>();
@@ -34,14 +34,14 @@ namespace ResumeApp.model
                 foreach (var project in projectsOfModule) {
                     projects.Add(project[1], project[2]);
                 }
-                modules.Add(moduleRow[0], new Module(moduleRow[0], moduleRow[1], moduleRow[2], projects));
+                modules.Add(moduleRow[0], new Module(moduleRow[0], moduleRow[1], moduleRow[2], projects.ToDictionary(entry => entry.Key, entry => entry.Value)));
                 projects.Clear();
             }
             return modules;
         }
 
         private static Dictionary<String, List<String>> fetchAllProject() {
-            var rawProjects = FileHandler.CsvFileReader(@"C:\Users\p128bf6\source\repos\ResumeApp\ResumeApp\pseudoDatabase\projects.csv", ',');
+            var rawProjects = FileHandler.CsvFileReader(@"pseudoDatabase\projects.csv", ',');
             Dictionary<String, List<String>> projectsDictionary = new Dictionary<string, List<string>>();
 
             foreach (var projectRow in rawProjects)
@@ -64,7 +64,7 @@ namespace ResumeApp.model
 
             saveProjects();
 
-            FileHandler.CsvFileWriter(ToDataset(modules.Values.ToList()), @"C:\Users\p128bf6\source\repos\ResumeApp\ResumeApp\pseudoDatabase\modules.csv", ',');
+            FileHandler.CsvFileWriter(ToDataset(modules.Values.ToList()), @"pseudoDatabase\modules.csv", ',');
         }
 
         private void saveProjects()
@@ -80,7 +80,7 @@ namespace ResumeApp.model
                 }
             }
 
-            FileHandler.CsvFileWriter(allProjects.Values.ToList(), @"C:\Users\p128bf6\source\repos\ResumeApp\ResumeApp\pseudoDatabase\projects.csv", ',');
+            FileHandler.CsvFileWriter(allProjects.Values.ToList(), @"pseudoDatabase\projects.csv", ',');
         }
 
         public List<String> ToStringList() => new List<String>() { id, name, description };
@@ -106,7 +106,7 @@ namespace ResumeApp.model
 
             deleteProjects();
 
-            FileHandler.CsvFileWriter(ToDataset(modules.Values.ToList()), @"C:\Users\p128bf6\source\repos\ResumeApp\ResumeApp\pseudoDatabase\modules.csv", ',');
+            FileHandler.CsvFileWriter(ToDataset(modules.Values.ToList()), @"pseudoDatabase\modules.csv", ',');
         }
 
         private void deleteProjects()
@@ -120,7 +120,7 @@ namespace ResumeApp.model
                 }
             }
 
-            FileHandler.CsvFileWriter(allProjects.Values.ToList(), @"C:\Users\p128bf6\source\repos\ResumeApp\ResumeApp\pseudoDatabase\projects.csv", ',');
+            FileHandler.CsvFileWriter(allProjects.Values.ToList(), @"pseudoDatabase\projects.csv", ',');
         }
 
         internal void deleteProject(string projectToDelete)
@@ -132,7 +132,7 @@ namespace ResumeApp.model
                 allProjects.Remove($"{id}_{projectToDelete}");
             }
 
-            FileHandler.CsvFileWriter(allProjects.Values.ToList(), @"C:\Users\p128bf6\source\repos\ResumeApp\ResumeApp\pseudoDatabase\projects.csv", ',');
+            FileHandler.CsvFileWriter(allProjects.Values.ToList(), @"pseudoDatabase\projects.csv", ',');
         }
     }
 }
